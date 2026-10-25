@@ -45,5 +45,27 @@ Test that PCs in different VLANs cannot ping each other without routing.
 
 Configure "Router-on-a-Stick" (sub-interfaces) to allow the VLANs to talk to each other.
 
+### Day 3 & 4: Multi-Subnet Routing and Troubleshooting
+* **Goal:** Connect two different subnets using a single router and troubleshoot connectivity.
 
+* **Topology Built:** 
+  * Subnet 1: `192.168.10.0/24` (PC1 and PC2 via Switch)
+  * Subnet 2: `192.168.20.0/24` (PC3 direct to Router)
+
+* **Accomplishments:**
+  * Configured Router interfaces `Fa1/0` (192.168.10.1) and `Fa2/0` (192.168.20.1) with `no shutdown`.
+  * Verified Layer 2 connectivity (PC1 ping PC2 succeeded).
+  * Verified Layer 3 Inter-network Routing (PC1 ping PC3 succeeded across the router).
+  * Observed TTL decrement (from 64 to 63) during routing, confirming Layer 3 hop.
+
+* **Troubleshooting Real-World Issues:**
+  * *Issue:* Router "host not reachable" errors. 
+  * *Solution:* Found a physical port mismatch in GNS3. The switch cable was in `Fa0/0`, but the IP was assigned to `Fa1/0`. Fixed the interface configuration.
+  * *Issue:* PC1 couldn't route to other networks.
+  * *Solution:* Realized PC1's default gateway was empty. Fixed by assigning the full IP string: `ip 192.168.10.10/24 192.168.10.1`.
+  * *Learned:* On Cisco routers, use `write memory` (not `save`) to save configurations.
+
+* **Plan for Tomorrow:** 
+  * Bring in the Ubuntu Linux server.
+  * Configure the Linux server as a DHCP server so PCs get IPs automatically.
 
