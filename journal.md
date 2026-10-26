@@ -68,4 +68,22 @@ Configure "Router-on-a-Stick" (sub-interfaces) to allow the VLANs to talk to eac
 * **Plan for Tomorrow:** 
   * Bring in the Ubuntu Linux server.
   * Configure the Linux server as a DHCP server so PCs get IPs automatically.
+    
+### Day 5: DHCP and Automated IP Addressing
+* **Goal:** Configure the Cisco Router to act as a DHCP server for both subnets.
 
+* **Accomplishments:**
+  * Created two DHCP pools (`OFFICE_POOL` and `SERVER_POOL`).
+  * Assigned default gateways and DNS servers within the DHCP configuration.
+  * Verified the DORA process on VPCS using the `dhcp` command.
+  * Successfully pinged across subnets (PC3 to Router Fa1/0) using automatically assigned IPs.
+
+* **Key Commands Learned:**
+  * `ip dhcp pool <name>`
+  * `network <ip> <subnet>`
+  * `default-router <gateway>`
+  * `write memory` (Crucial for saving configs so they survive a reboot!)
+
+* **Plan for Next Session:**
+  * Introduce the Ubuntu/Alpine Linux Server.
+  * Replace the Cisco DHCP with Linux-based DHCP (ISC-DHCP).
