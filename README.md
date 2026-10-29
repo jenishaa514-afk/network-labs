@@ -7,6 +7,8 @@ Welcome to my network engineering portfolio! This repository contains my hands-o
 ### 📌 Project Objective
 The goal of this project was to build a fully functional enterprise edge network in GNS3. This lab demonstrates how to connect an internal Cisco network to the internet using **NAT (Network Address Translation)**. Additionally, a Linux server (Ubuntu) was deployed to simulate a centralized DHCP server for the internal network.
 
+##Inter-VLAN Network topology
+
 <img width="566" height="284" alt="Project1_Topology drawio" src="https://github.com/user-attachments/assets/89853179-1518-4eff-823a-7b877bf0e289" />
 
 ### 🗺️ Topology Overview
@@ -25,14 +27,18 @@ To achieve internet connectivity, the following configurations were applied to t
 *   **NAT Overload (PAT):** Configured Port Address Translation, allowing multiple internal private IPs to share the single public WAN IP for internet access.
 *   **Interface Roles:** Explicitly defined the LAN interface (`Fa1/0`) as `ip nat inside` and the WAN interface (`Fa0/0`) as `ip nat outside`.
 
-<img width="940" height="624" alt="image" src="https://github.com/user-attachments/assets/839f3295-2b20-40cc-92ae-37f5694ee4e7" />
+<img width="895" height="594" alt="image" src="https://github.com/user-attachments/assets/1febdcc5-32bf-447c-a323-dd020bb5eee8" />
+
 
 ### 🧪 Verification & Testing
 *   **Internal Connectivity:** Successfully verified that internal virtual PCs could communicate with each other and the default gateway.
 *   **Internet Connectivity:** Executed a ping to Google's public DNS (`8.8.8.8`) from an internal PC (`192.168.10.10`). The successful replies prove that the Cisco router is correctly translating the private IP to the public IP. 
 
-<img width="895" height="594" alt="image" src="https://github.com/user-attachments/assets/100ffa27-fe19-44b5-ba1f-740622343ed2" />
+<img width="895" height="594" alt="image" src="https://github.com/user-attachments/assets/14bb5846-1ecb-43ed-910e-aa5e6643ffdf" />
+
 *   **NAT Table Verification:** Ran the `show ip nat translations` command on the router. This output verifies that the router is actively mapping the internal private address to the public edge address.
+*   <img width="895" height="594" alt="image" src="https://github.com/user-attachments/assets/3a672b05-1515-456d-b492-09992934ac5b" />
+
 
 
 ### 🐧 Linux Server Integration (Ubuntu)
@@ -40,6 +46,7 @@ To simulate a real-world enterprise setup, I installed and configured an Ubuntu 
 
 *   **Configuration:** Edited the `/etc/dhcp/dhcpd.conf` file to define the `192.168.10.0/24` subnet, IP ranges, default gateway, and DNS servers.
 *   **Service Management:** Restarted the `isc-dhcp-server` and verified its active running status using `systemctl`.
+*   
 
 
 ### 🚧 Challenges Overcame
