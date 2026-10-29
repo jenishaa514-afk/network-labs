@@ -7,9 +7,6 @@ Welcome to my network engineering portfolio! This repository contains my hands-o
 ### 📌 Project Objective
 The goal of this project was to build a fully functional enterprise edge network in GNS3. This lab demonstrates how to connect an internal Cisco network to the internet using **NAT (Network Address Translation)**. Additionally, a Linux server (Ubuntu) was deployed to simulate a centralized DHCP server for the internal network.
 
-##Inter-VLAN Network topology
-
-<img width="566" height="284" alt="Project1_Topology drawio" src="https://github.com/user-attachments/assets/89853179-1518-4eff-823a-7b877bf0e289" />
 
 ### 🗺️ Topology Overview
 *   **Internal Network:** 3 Virtual PCs connected to a Cisco Switch, routed through a Cisco 7200 Router.
@@ -17,7 +14,8 @@ The goal of this project was to build a fully functional enterprise edge network
 *   **Linux Server:** An Ubuntu VM acting as a DHCP Server for the `192.168.10.0/24` network.
 
 
-<img width="1366" height="720" alt="image" src="https://github.com/user-attachments/assets/8185a153-118c-41e7-bb21-3f69761de64d" />
+<img width="613" height="408" alt="Project1_Topology" src="https://github.com/user-attachments/assets/61a55e71-1f1c-4b92-88f4-426f00ff046b" />
+
 
 ### ⚙️ Cisco Router Configurations Implemented
 To achieve internet connectivity, the following configurations were applied to the Cisco Router (R1):
