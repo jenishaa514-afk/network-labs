@@ -1,89 +1,49 @@
-Day 1 & 2 (GNS3 Setup & First Ping)
-Goal: Install GNS3, resolve virtualization errors, and establish basic connectivity between a router and a PC.
+# 📓 Network Engineering Lab Journal
 
-✅ What I Accomplished Today:
+## Project 1: Enterprise Edge Routing & NAT (GNS3)
 
-Installed GNS3 and VirtualBox.
+### Day 1 & 2: GNS3 Setup & Virtualization Troubleshooting
+*   **Goal:** Install GNS3, configure VirtualBox, and establish the first network topology.
+*   **What I Did:** 
+    *   Installed GNS3, VirtualBox 7.0.26, and imported the GNS3 VM. 
+    *   Imported the Cisco `c7200` IOS router image.
+    *   Built a basic topology (1 Router + 1 VPCS) and successfully pinged the router interface.
+*   **Challenges & Solutions:**
+    *   *Issue:* Persistent `HAXM acceleration not installed` and QEMU image crashes.
+    *   *Solution:* Unchecked "Require hardware acceleration" in QEMU settings and switched to software emulation. 
+    *   *Issue:* VirtualBox network adapter (`vboxnet0`) missing, preventing the VM from starting.
+    *   *Solution:* Manually created the Host-Only adapter via VirtualBox Host Network Manager.
+    *   *Issue:* GNS3 GUI refused to connect to the Local Server (`WinError 10053`).
+    *   *Solution:* Disabled the Local Server entirely and forced GNS3 to use the GNS3 VM via Remote Server (`192.168.56.101`).
 
-Successfully imported the Cisco c7200 IOS router image into GNS3 (allocated 3 FastEthernet slots).
+### Day 3 & 4: Linux Server Deployment (Ubuntu / Alpine)
+*   **Goal:** Deploy a Linux VM to act as a centralized DHCP server for the Cisco network.
+*   **What I Did:**
+    *   Attempted to deploy Alpine Linux in QEMU (encountered multiple file missing and bootloader errors).
+    *   Pivoted to deploying an **Ubuntu Server VM** inside VirtualBox on a secondary laptop.
+    *   Configured Netplan (`/etc/netplan/00-installer-config.yaml`) to assign a static IP (`192.168.31.150`).
+    *   Installed `isc-dhcp-server` and created a DHCP scope for `192.168.10.0/24`.
+*   **Challenges & Solutions:**
+    *   *Issue:* The GNS3 Cloud Node consistently dropped packets when bridged to the host Windows Wi-Fi adapter, preventing the Cisco routers from reaching the Linux VM.
+    *   *Solution:* Documented the Linux DHCP configuration as a standalone service. (Plan to integrate natively in future projects using GNS3 VM host-only adapters instead of the physical Wi-Fi bridge).
 
-Deployed my first lab topology (1 Router + 1 VPCS).
+### Day 5: Console Application Fixes
+*   **Goal:** Fix terminal issues preventing access to Cisco devices.
+*   **What I Did:**
+    *   Encountered the "Could not start telnet console Solar-PuTTY" error.
+    *   Downloaded Solar-PuTTY directly and manually mapped the executable path in GNS3 Preferences (`C:\...\Solar-PuTTY.exe --telnet --hostname %h --port %p --name "%d"`).
+    *   Successfully opened the Cisco IOS command-line interface.
 
-Configured the router's interface (FastEthernet 0/0) with IP 192.168.1.1.
-
-Assigned IP 192.168.1.10 to PC1.
-
-Successfully pinged the router from PC1! (End-to-end connectivity works).
-
-🚧 Challenges Faced & Solutions:
-
-VirtualBox VM Issues: GNS3 would not connect to the GNS3 VM. The client and server versions were mismatched (2.2.61 vs 2.2.58).
-
-Solution: Uninstalled GNS3 and VirtualBox VM entirely. Switched to the GNS3 Local Server instead, which is much lighter and fixed all connection issues.
-
-File Path Errors: GNS3 was looking for files on the D: drive.
-
-Solution: Manually updated the paths in Preferences to C:\Program Files\GNS3\.
-
-The Uppercase Bug: The server wouldn't start because the file was named gns3server.EXE.
-
-Solution: Renamed it to gns3server.exe (lowercase).
-
-🧠 Key Commands Learned:
-
-Router config: enable, configure terminal, interface fa0/0, ip address 192.168.1.1 255.255.255.0, no shutdown.
-
-VPCS config: ip 192.168.1.10/24, ping 192.168.1.1.
-
-🎯 Plan for Tomorrow:
-
-Add an Ethernet Switch between the router and PC.
-
-Create VLAN 10 (Office) and VLAN 20 (Server).
-
-Test that PCs in different VLANs cannot ping each other without routing.
-
-Configure "Router-on-a-Stick" (sub-interfaces) to allow the VLANs to talk to each other.
-
-### Day 3 & 4: Multi-Subnet Routing and Troubleshooting
-* **Goal:** Connect two different subnets using a single router and troubleshoot connectivity.
-
-* **Topology Built:** 
-  * Subnet 1: `192.168.10.0/24` (PC1 and PC2 via Switch)
-  * Subnet 2: `192.168.20.0/24` (PC3 direct to Router)
-
-* **Accomplishments:**
-  * Configured Router interfaces `Fa1/0` (192.168.10.1) and `Fa2/0` (192.168.20.1) with `no shutdown`.
-  * Verified Layer 2 connectivity (PC1 ping PC2 succeeded).
-  * Verified Layer 3 Inter-network Routing (PC1 ping PC3 succeeded across the router).
-  * Observed TTL decrement (from 64 to 63) during routing, confirming Layer 3 hop.
-
-* **Troubleshooting Real-World Issues:**
-  * *Issue:* Router "host not reachable" errors. 
-  * *Solution:* Found a physical port mismatch in GNS3. The switch cable was in `Fa0/0`, but the IP was assigned to `Fa1/0`. Fixed the interface configuration.
-  * *Issue:* PC1 couldn't route to other networks.
-  * *Solution:* Realized PC1's default gateway was empty. Fixed by assigning the full IP string: `ip 192.168.10.10/24 192.168.10.1`.
-  * *Learned:* On Cisco routers, use `write memory` (not `save`) to save configurations.
-
-* **Plan for Tomorrow:** 
-  * Bring in the Ubuntu Linux server.
-  * Configure the Linux server as a DHCP server so PCs get IPs automatically.
-    
-### Day 5: DHCP and Automated IP Addressing
-* **Goal:** Configure the Cisco Router to act as a DHCP server for both subnets.
-
-* **Accomplishments:**
-  * Created two DHCP pools (`OFFICE_POOL` and `SERVER_POOL`).
-  * Assigned default gateways and DNS servers within the DHCP configuration.
-  * Verified the DORA process on VPCS using the `dhcp` command.
-  * Successfully pinged across subnets (PC3 to Router Fa1/0) using automatically assigned IPs.
-
-* **Key Commands Learned:**
-  * `ip dhcp pool <name>`
-  * `network <ip> <subnet>`
-  * `default-router <gateway>`
-  * `write memory` (Crucial for saving configs so they survive a reboot!)
-
-* **Plan for Next Session:**
-  * Introduce the Ubuntu/Alpine Linux Server.
-  * Replace the Cisco DHCP with Linux-based DHCP (ISC-DHCP).
+### Day 6: NAT Overload (PAT) & Real Internet Connectivity
+*   **Goal:** Connect the virtual Cisco network to the real internet using a GNS3 NAT Node.
+*   **What I Did:**
+    *   Added a NAT Node to the topology and connected it to the Router's `FastEthernet 0/0`.
+    *   Configured the WAN interface as a DHCP client (`ip address dhcp`), successfully obtaining an IP (`192.168.42.x`).
+    *   Configured an Access Control List (ACL) to permit the internal `192.168.10.0/24` network.
+    *   Configured **NAT Overload (PAT)** to translate internal private IPs to the router's public WAN IP.
+    *   Applied `ip nat inside` and `ip nat outside` to the correct interfaces.
+*   **The Big Win:** 
+    *   Successfully pinged Google's public DNS (`8.8.8.8`) from PC1 (`192.168.10.10`).
+    *   Verified translations using `show ip nat translations`.
+    *   Created the final network diagram in Draw.io and documented the project in `README.md`.
+    *   Exported the `.zip` project file and uploaded it to GitHub.
