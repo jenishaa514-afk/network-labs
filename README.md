@@ -51,3 +51,6 @@ To simulate a real-world enterprise setup, I installed and configured an Ubuntu 
 *   **Virtualization Troubleshooting:** Encountered and resolved complex GNS3 VM connection issues, including VirtualBox Host-Only adapter failures, Windows Firewall blocks, and antivirus interference.
 *   **Console Emulation:** Configured custom terminal applications (Solar-PuTTY) to fix missing console path errors in the GNS3 GUI.
 *   **Cloud Node Limitations:** Successfully pivoted from relying on a flaky Cloud Node Wi-Fi bridge to a stable GNS3 NAT Node to ensure the final routing project was completed and verified.
+
+*   ### 📦 Project Files
+👉 **[Download the GNS3 Project File (NAT-test.zip)](NAT-test.zip)**
