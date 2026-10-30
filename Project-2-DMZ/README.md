@@ -35,4 +35,5 @@ Simulated an external attacker using the router's WAN interface (`source f0/0`) 
 *   **Test 2 (Access DMZ):** `ping 192.168.20.10 source f0/0` resulted in **100% success**. The ACL successfully allowed external access to the public Web Server.
 *   Verified hit counters using `show access-lists` to confirm the firewall was actively matching and dropping packets.
 
-*  
+  ### 📦 Project Files
+👉 **[Download the GNS3 Project File (Project2_DMZ_Security.zip)](Project2_DMZ_Security.zip)**
