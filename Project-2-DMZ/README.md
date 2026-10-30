@@ -1,4 +1,6 @@
 ## Project 2: Enterprise DMZ & Edge Security
+*Architected a secure network with Inside, Outside, and DMZ zones using Cisco ACLs and Linux.*
+👉 **[View the full Project 2 Documentation and Files Here](Project-2-DMZ/)**
 
 ### 📌 Objective
 Architected a secure enterprise network topology in GNS3 featuring an Inside LAN, an Outside Internet connection, and a DMZ (Demilitarized Zone). The goal was to securely host a public-facing Linux Web Server while protecting the internal corporate network from external threats.
