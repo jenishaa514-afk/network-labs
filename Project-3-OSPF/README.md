@@ -40,3 +40,6 @@ To prove the network is actually routing, the Hacker-PC successfully pings R1's 
 #### 4. NAT Overload (PAT) Translation
 Internal PC1 (`192.168.100.10`) successfully pings `8.8.8.8`. The `show ip nat translations` command on R1 confirms the private IP is being translated to R1's public IP.
 <img width="895" height="595" alt="image" src="https://github.com/user-attachments/assets/212c0049-3e73-492e-91f8-daf0971b1a17" />
+
+
+👉 **[View Project 3 Documentation and Files](./Project-3-OSPF/README.md)**
