@@ -6,3 +6,8 @@ Architected a secure network topology featuring an Inside LAN, an Outside Intern
 
 👉 **[View Project 2 Documentation](./Project-2-DMZ/README.md)**
 👉 **[Download the GNS3 Project File](./Project-2-DMZ/DMZ_&_Security.zip)**
+
+### Project 3: Multi-Area OSPF, ZBF & NAT
+Architected an enterprise multi-area OSPF network featuring a Zone-Based Firewall, route summarization, and NAT Overload for internet access.
+👉 **[View Project 3 Documentation and Files](./Project-3-OSPF/README.md)**
+
