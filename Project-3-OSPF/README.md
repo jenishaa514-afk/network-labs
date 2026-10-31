@@ -1,4 +1,6 @@
-# Project 3: Multi-Area OSPF, ZBF & NAT
+### Project 3: Multi-Area OSPF, ZBF & NAT
+Architected an enterprise multi-area OSPF network featuring a Zone-Based Firewall, route summarization, and NAT Overload.
+👉 **[View Project 3 Documentation and Files](./Project-3-OSPF/README.md)**
 
 ### 📌 Objective
 Designed and deployed an enterprise multi-area OSPF network featuring a Zone-Based Firewall (ZBF), route summarization, NAT Overload, and a simulated external threat to verify firewall rules.
@@ -42,4 +44,5 @@ Internal PC1 (`192.168.100.10`) successfully pings `8.8.8.8`. The `show ip nat t
 <img width="895" height="595" alt="image" src="https://github.com/user-attachments/assets/212c0049-3e73-492e-91f8-daf0971b1a17" />
 
 
+  ### 📦 Project Files
 👉 **[View Project 3 Documentation and Files](./Project-3-OSPF/README.md)**
