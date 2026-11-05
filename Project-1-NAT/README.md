@@ -16,6 +16,31 @@ The goal of this project was to build a fully functional enterprise edge network
 
 <img width="613" height="408" alt="Project1_Topology" src="https://github.com/user-attachments/assets/61a55e71-1f1c-4b92-88f4-426f00ff046b" />
 
+### 📝 Cisco IOS Configuration (R1)
+Here is the core routing and NAT configuration applied to the edge router to establish internet connectivity.
+
+```text
+! 1. Configure the WAN Interface (DHCP Client)
+interface FastEthernet0/0
+ ip address dhcp
+ ip nat outside
+ no shutdown
+ exit
+
+! 2. Configure the LAN Interface
+interface FastEthernet1/0
+ ip address 192.168.10.1 255.255.255.0
+ ip nat inside
+ no shutdown
+ exit
+
+! 3. NAT Overload (PAT) Configuration
+access-list 1 permit 192.168.10.0 0.0.0.255
+ip nat inside source list 1 interface FastEthernet0/0 overload
+
+! 4. Save Configuration
+write memory
+
 
 ### ⚙️ Cisco Router Configurations Implemented
 To achieve internet connectivity, the following configurations were applied to the Cisco Router (R1):
@@ -44,7 +69,13 @@ To simulate a real-world enterprise setup, I installed and configured an Ubuntu 
 
 *   **Configuration:** Edited the `/etc/dhcp/dhcpd.conf` file to define the `192.168.10.0/24` subnet, IP ranges, default gateway, and DNS servers.
 *   **Service Management:** Restarted the `isc-dhcp-server` and verified its active running status using `systemctl`.
-*   
+
+```text
+subnet 192.168.10.0 netmask 255.255.255.0 {
+  range 192.168.10.100 192.168.10.200;
+  option routers 192.168.10.1;
+  option domain-name-servers 8.8.8.8;
+}
 
 
 ### 🚧 Challenges Overcame
